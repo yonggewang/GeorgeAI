@@ -2,6 +2,14 @@ import SwiftUI
 
 struct TeacherView: View {
     @StateObject private var viewModel = TeacherViewModel()
+    @State private var showAPIKeySetup = false
+    @State private var showCamera = false
+    @State private var showActionSheet = false
+    @State private var showCameraAlert = false
+    @State private var sourceType: UIImagePickerController.SourceType = .camera
+    @State private var selectedImage: UIImage?
+    
+    @State private var showSettings = false
     
     var body: some View {
         NavigationView {
@@ -36,15 +44,56 @@ struct TeacherView: View {
                 Alert(title: Text("Error"), message: Text(error.value), dismissButton: .default(Text("OK")))
             }
         }
+        .sheet(isPresented: $showCamera, onDismiss: {
+            if let image = selectedImage {
+                viewModel.helpWithHomework(image: image)
+                selectedImage = nil
+            }
+        }) {
+            ImagePicker(image: $selectedImage, isPresented: $showCamera, sourceType: sourceType)
+        }
+        .sheet(isPresented: $showSettings) {
+            APIKeySetupView(isSettingsMode: true) {
+                self.showSettings = false
+            }
+        }
+        .fullScreenCover(isPresented: $showAPIKeySetup, onDismiss: {
+             // Optional: Check again/verify? logic handled in View
+        }) {
+            APIKeySetupView(isSettingsMode: false) {
+                self.showAPIKeySetup = false
+            }
+        }
+        .onAppear {
+            if !APIKeyManager.hasAtLeastOneKey {
+                showAPIKeySetup = true
+            }
+        }
+
     }
     
     // MARK: - Subviews
     
     private var headerView: some View {
-        Text("George Wang's AI Teacher")
-            .font(.title2)
-            .fontWeight(.bold)
-            .padding(.top)
+        ZStack {
+            Text("George Wang's AI Teacher")
+                .font(.title2)
+                .fontWeight(.bold)
+            
+            HStack {
+                Spacer()
+                Button(action: {
+                    viewModel.stopSpeaking()
+                    showSettings = true
+                }) {
+                    Image(systemName: "gearshape.fill")
+                        .font(.title2)
+                        .foregroundColor(.gray)
+                }
+                .padding(.trailing)
+            }
+        }
+        .padding(.top)
     }
     
     private var configurationView: some View {
@@ -71,6 +120,7 @@ struct TeacherView: View {
                 Toggle("", isOn: Binding(
                     get: { viewModel.selectedEngine == .gemini },
                     set: { isGemini in
+                        viewModel.stopSpeaking()
                         viewModel.selectedEngine = isGemini ? .gemini : .chatGPT
                         // Add notification message to chat
                         let text = isGemini ? "I am the Gemini AI" : "I am the ChatGPT AI"
@@ -100,6 +150,42 @@ struct TeacherView: View {
                         .cornerRadius(8)
                 }
             }
+            
+            // Homework Help Button
+            Button(action: {
+                viewModel.stopSpeaking()
+                showActionSheet = true
+            }) {
+                HStack {
+                    Image(systemName: "camera.fill")
+                    Text("Please help me on my homework")
+                }
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color.purple)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+            }
+            .actionSheet(isPresented: $showActionSheet) {
+                ActionSheet(title: Text("Select Image Source"), buttons: [
+                    .default(Text("Take Photo")) {
+                        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                            self.sourceType = .camera
+                            self.showCamera = true
+                        } else {
+                            self.showCameraAlert = true
+                        }
+                    },
+                    .default(Text("Choose from Library")) {
+                        self.sourceType = .photoLibrary
+                        self.showCamera = true
+                    },
+                    .cancel()
+                ])
+            }
+        }
+        .alert(isPresented: $showCameraAlert) {
+            Alert(title: Text("Camera Not Available"), message: Text("The camera is not available on this device or simulator. Please choose a photo from the library instead."), dismissButton: .default(Text("OK")))
         }
     }
     

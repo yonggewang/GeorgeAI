@@ -252,13 +252,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 95HP3WT7K8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "George AI";
+				INFOPLIST_KEY_CFBundleDisplayName = GeorgeAI;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need to use your camera so you can take a picture of your homework and get help from the AI.\nYour camera is only used when you ask for homework help.\nIf you choose to allow the camera, you can take a photo of your homework.\nYou will be able to look at the picture first. If you like it, you can send it to the AI for help.\nWe do not save any photos in our app.\nWe do not use your camera for anything else.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This microphone will only be used when you press the button to ask AI a question. After you press the button, the app will record your voice and translate your voice to texts and submit it to AI engine. After you press the stop button, your microphone will no longer to by the app";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need your permission to access your photos so you can choose a picture of your homework.\nYour photo is only used when you ask the AI for homework help.\nWhen you allow photo access, you will pick a photo from your own photo gallery. The app will then send that photo to the AI to help answer your question.\nWe do not save, store, or keep any of your photos.\nYour photos are never used for any other purpose.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "When you pressed the button to talk, the microphone will collect your voice and then contert it to text so that I can relay it to the AI engine. After you press the button to stop talking, it will no longer use your microphone.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -270,7 +272,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.socrates.georgeAI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -292,13 +294,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 95HP3WT7K8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "George AI";
+				INFOPLIST_KEY_CFBundleDisplayName = GeorgeAI;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need to use your camera so you can take a picture of your homework and get help from the AI.\nYour camera is only used when you ask for homework help.\nIf you choose to allow the camera, you can take a photo of your homework.\nYou will be able to look at the picture first. If you like it, you can send it to the AI for help.\nWe do not save any photos in our app.\nWe do not use your camera for anything else.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This microphone will only be used when you press the button to ask AI a question. After you press the button, the app will record your voice and translate your voice to texts and submit it to AI engine. After you press the stop button, your microphone will no longer to by the app";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need your permission to access your photos so you can choose a picture of your homework.\nYour photo is only used when you ask the AI for homework help.\nWhen you allow photo access, you will pick a photo from your own photo gallery. The app will then send that photo to the AI to help answer your question.\nWe do not save, store, or keep any of your photos.\nYour photos are never used for any other purpose.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "When you pressed the button to talk, the microphone will collect your voice and then contert it to text so that I can relay it to the AI engine. After you press the button to stop talking, it will no longer use your microphone.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -310,7 +314,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.socrates.georgeAI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;

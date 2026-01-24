@@ -15,7 +15,7 @@ class TeacherViewModel: ObservableObject {
     @Published var voiceRate: Float = 0.5
     @Published var voicePitch: Float = 1.0
     @Published var selectedEngine: AIEngine = .gemini
-    @Published var userAge: String = ""
+    @Published var userAge: String = "9"
     
     // UI State
     @Published var isRecording: Bool = false
@@ -34,6 +34,7 @@ class TeacherViewModel: ObservableObject {
     // MARK: - Actions
     
     func toggleRecording() {
+        stopSpeaking()
         if isRecording {
             // Stop recording
             speechManager.stopRecording()
@@ -52,7 +53,7 @@ class TeacherViewModel: ObservableObject {
         }
     }
     
-    func sendMessage(text: String) {
+    func sendMessage(text: String, image: UIImage? = nil) {
         let newUserMsg = Message(text: text, isUser: true)
         messages.append(newUserMsg)
         
@@ -63,7 +64,8 @@ class TeacherViewModel: ObservableObject {
                 let responseText = try await aiService.sendMessage(
                     text: text,
                     engine: selectedEngine,
-                    age: userAge
+                    age: userAge,
+                    image: image
                 )
                 
                 await MainActor.run {
@@ -83,6 +85,11 @@ class TeacherViewModel: ObservableObject {
         }
     }
     
+    func helpWithHomework(image: UIImage) {
+        let helpText = "Please help me on my homework"
+        sendMessage(text: helpText, image: image)
+    }
+    
     func resetConversation() {
         messages.removeAll()
         ttsManager.stop()
@@ -92,7 +99,12 @@ class TeacherViewModel: ObservableObject {
         ttsManager.speak(text: welcomeText, rate: voiceRate, pitch: voicePitch)
     }
     
+    func stopSpeaking() {
+        ttsManager.stop()
+    }
+    
     func submitAge() {
+        stopSpeaking()
         // In this app design, age is just stored and used in the prompt.
         // We could verify it's a number, but for now we just accept it.
         // A confirmation toast could be added here if desired.
